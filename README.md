@@ -18,7 +18,7 @@ You can download MobCapturer right here: [Dev Builds](https://blob.build/project
 ### Requirements
 
 - Java 21+
-- Minecraft 1.18+
+- Minecraft 1.21+
 - Paper or its forks
 
 ## :gear: config

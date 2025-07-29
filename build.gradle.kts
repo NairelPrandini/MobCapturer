@@ -9,17 +9,16 @@ plugins {
 repositories {
     mavenLocal()
     mavenCentral()
-    maven("https://s01.oss.sonatype.org/content/groups/public/")
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://jitpack.io")
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
-    compileOnly("com.github.Slimefun:Slimefun4:RC-37")
+    compileOnly("com.github.Slimefun:Slimefun4:experimental-SNAPSHOT")
     implementation("org.bstats:bstats-bukkit:3.0.3")
     implementation("com.google.code.findbugs:jsr305:3.0.2")
-    implementation("net.guizhanss:guizhanlib-all:2.2.0-SNAPSHOT")
+    implementation("net.guizhanss:guizhanlib-all:2.3.0")
 }
 
 group = "io.github.thebusybiscuit"
@@ -28,6 +27,7 @@ description = "MobCapturer"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 publishing {
@@ -49,11 +49,18 @@ tasks.shadowJar {
         val last = from.split(".").last()
         relocate(from, "io.github.thebusybiscuit.mobcapturer.libs.$last")
     }
+
     doRelocate("org.bstats")
     doRelocate("javax.annotation")
     doRelocate("io.papermc.paperlib")
-    minimize()
-    archiveClassifier = ""
+
+    minimize() // remove classes não utilizadas
+
+    archiveClassifier.set("") // isso remove o "-all" do nome do jar
+}
+
+tasks.build {
+    dependsOn(tasks.shadowJar) // build = shadowJar
 }
 
 bukkit {

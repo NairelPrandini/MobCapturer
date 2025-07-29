@@ -131,19 +131,21 @@ public final class Setup {
             RecipeType.ENHANCED_CRAFTING_TABLE,
             new ItemStack[] {
                 new ItemStack(Material.STRING), new ItemStack(Material.IRON_NUGGET), new ItemStack(Material.STRING),
-                SlimefunItems.MAGIC_LUMP_2, new ItemStack(Material.EGG), SlimefunItems.MAGIC_LUMP_2,
+                SlimefunItems.MAGIC_LUMP_2.item(), new ItemStack(Material.EGG), SlimefunItems.MAGIC_LUMP_2.item(),
                 new ItemStack(Material.STRING), new ItemStack(Material.IRON_NUGGET), new ItemStack(Material.STRING)
             }
         ).register(plugin);
+
+
 
         new MobCannon(
             ItemGroups.TOOLS,
             ItemStacks.MOB_CANNON,
             RecipeType.ENHANCED_CRAFTING_TABLE,
             new ItemStack[] {
-                null, SlimefunItems.STEEL_INGOT, SlimefunItems.HOOK,
-                SlimefunItems.STEEL_INGOT, SlimefunItems.POWER_CRYSTAL, SlimefunItems.STEEL_INGOT,
-                SlimefunItems.ADVANCED_CIRCUIT_BOARD, SlimefunItems.STEEL_INGOT, null
+                null, SlimefunItems.STEEL_INGOT.item(), SlimefunItems.HOOK.item(),
+                SlimefunItems.STEEL_INGOT.item(), SlimefunItems.POWER_CRYSTAL.item(), SlimefunItems.STEEL_INGOT.item(),
+                SlimefunItems.ADVANCED_CIRCUIT_BOARD.item(), SlimefunItems.STEEL_INGOT.item(), null
             }
         ).register(plugin);
         // @formatter:on
@@ -151,7 +153,7 @@ public final class Setup {
         setupMobEggs();
 
         // researches
-        Researches.MOB_CAPTURING.addItems(ItemStacks.MOB_CANNON, ItemStacks.MOB_CAPTURING_PELLET);
+        Researches.MOB_CAPTURING.addItems(ItemStacks.MOB_CANNON.item(), ItemStacks.MOB_CAPTURING_PELLET.item());
         Researches.MOB_CAPTURING.register();
     }
 
@@ -368,6 +370,9 @@ public final class Setup {
     private static <T extends LivingEntity> void registerMob(EntityType type, MobAdapter<T> adapter, String eggTexture) {
         String name = ChatUtils.humanize(type.name());
 
+
+
+
         // @formatter:off
         MobEgg<T> egg = new MobEgg<>(
             ItemGroups.MOB_EGGS,
@@ -376,7 +381,7 @@ public final class Setup {
             RecipeTypes.MOB_CAPTURING,
             new ItemStack[] {
                 null, null, null,
-                null, new CustomItemStack(SlimefunUtils.getCustomHead(eggTexture), ChatColor.WHITE + name), null,
+                null, CustomItemStack.create(SlimefunUtils.getCustomHead(eggTexture), ChatColor.WHITE + name), null,
                 null, null, null
             }
         );

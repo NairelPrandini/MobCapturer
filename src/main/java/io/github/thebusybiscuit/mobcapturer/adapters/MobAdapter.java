@@ -120,7 +120,7 @@ public interface MobAdapter<T extends LivingEntity> extends PersistentDataType<S
         entity.setRemoveWhenFarAway(json.get("_removeWhenFarAway").getAsBoolean());
 
         if (!json.get("_customName").isJsonNull()) {
-            entity.setCustomName(json.get("_customName").getAsString());
+            entity.customName();
         }
 
         entity.setCustomNameVisible(json.get("_customNameVisible").getAsBoolean());
